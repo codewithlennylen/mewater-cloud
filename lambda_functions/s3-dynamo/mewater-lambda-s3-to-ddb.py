@@ -5,6 +5,7 @@ import boto3
 # AWS SDK config
 ddb_client = boto3.client('dynamodb', region_name="us-east-1")
 s3_client = boto3.client('s3', region_name="us-east-1")
+sns_client = boto3.client('sns', region_name="us-east-1")
 
 
 def lambda_handler(event, context):
@@ -42,8 +43,8 @@ def parse_file(bucket, key) -> dict:
         (json_doc["outlet1_volume"] + json_doc["outlet2_volume"])
 
     if leaked_volume > 0:
-        print("Leakage Detected")
-        # send trigger
+        sns_trigger = leakage_detected(leaked_volume)
+        print(sns_trigger)
 
     # create item / 'record' for DynamoDB
     ddb_item = {
@@ -55,6 +56,17 @@ def parse_file(bucket, key) -> dict:
     }
 
     return ddb_item
+
+
+def leakage_detected(volume):
+    notification = f"Leak Detected - {volume} L"
+
+    response = sns_client.publish(
+        TargetArn="<SNS-ARN>",
+        Message=json.dumps({'default': json.dumps(notification)}),
+        MessageStructure='json'
+    )
+    return response
 
 
 def put_record_on_ddb(ddb_item: dict) -> dict:
