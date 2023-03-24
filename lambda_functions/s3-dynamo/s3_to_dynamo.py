@@ -16,15 +16,10 @@ ddb_client = boto3.client('dynamodb', region_name="us-east-1",
                           aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 
-# Dynamodb Partition Key -> time(string)
-# time
-# inlet_volume
-# outlet_volume1
-# outlet_volume2
-# leakage
 
-# TODO: Get files from s3
-def parse_file():
+
+# Get files from s3 instead.
+def parse_file() -> dict:
     path = 's3-data/_1673783312034'
 
     with open(path, 'r') as file:
@@ -54,9 +49,21 @@ def parse_file():
     return ddb_item
 
 
-def put_record_on_ddb():
+def run():
     ddb_item = parse_file()
     print(ddb_item)
+    
+    # put_record_on_ddb(ddb_item)
+
+
+# Dynamodb Partition Key -> time(string)
+# time
+# inlet_volume
+# outlet_volume1
+# outlet_volume2
+# leakage
+def put_record_on_ddb(ddb_item: dict) -> dict:
+    
 
     # Specify the table
     response = ddb_client.put_item(
@@ -88,4 +95,5 @@ def put_record_on_ddb():
 
 
 # parse_file()
-put_record_on_ddb()
+# put_record_on_ddb()
+run()
