@@ -79,7 +79,7 @@
 
 <div align="center">
   <a href="https://github.com/codewithlennylen/mewater-cloud">
-    <img src="Architecture Docs/mewater-iot.jpg">
+    <img src="Architecture Docs/mewater-iot.jpg" height="500px">
   </a>
 </div>
 
