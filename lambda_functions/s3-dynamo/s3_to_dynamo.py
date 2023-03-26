@@ -16,11 +16,9 @@ ddb_client = boto3.client('dynamodb', region_name="us-east-1",
                           aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 
-
-
 # Get files from s3 instead.
 def parse_file() -> dict:
-    path = 's3-data/_1673783312034'
+    path = 's3-data/IoT_data_delivery_stream-1-2023-03-24-18-30-38-e57f788f-5c8f-4bc9-b8fb-ebc61c105486'
 
     with open(path, 'r') as file:
         doc = file.readline()
@@ -52,7 +50,7 @@ def parse_file() -> dict:
 def run():
     ddb_item = parse_file()
     print(ddb_item)
-    
+
     # put_record_on_ddb(ddb_item)
 
 
@@ -63,7 +61,6 @@ def run():
 # outlet_volume2
 # leakage
 def put_record_on_ddb(ddb_item: dict) -> dict:
-    
 
     # Specify the table
     response = ddb_client.put_item(
