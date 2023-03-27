@@ -130,8 +130,8 @@ The processed data is stored in a DynamoDB Table, which allows for near-realtime
 We've then set up an EC2 Instance to serve our web application where users can view a live dashboard allowing them to monitor the system status. The web-app access our DynamoDB Table via the Python Boto3 SDK.
 
 <div align="center">
-  <a href="#">
-    <img src="#" alt="MeWater Dashboard Screenshot">
+  <a href="https://github.com/codewithlennylen/mewater-dashboard">
+    <img src="Architecture Docs/MeWater Dashboard Main.png">
   </a>
 </div>
 
@@ -150,6 +150,14 @@ Once a leakage is detected, the lambda pushes a message with the leakage info to
 * Another Lambda function is subscribed to this topic and this function sends a command to the IoT Devices via AWS IoT Core to shutdown the valves thus stopping the water leak
 * An SMS is sent to the user informing them of the detected leak
 * An Email is sent to the user informing them of the detected leak
+
+<div align="center">
+  <a href="https://github.com/codewithlennylen/mewater-dashboard">
+    <img src="Architecture Docs/MeWater Dashboard Leak.png">
+  </a>
+</div>
+
+<br/>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
